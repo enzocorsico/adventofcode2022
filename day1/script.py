@@ -1,10 +1,10 @@
 import requests
 
-def getListFromWebsite():
-    headers = {
-        'cookie': 'session=53616c7465645f5f88e427cc590f85def2ddfc03b97b46f72d8c783d0adb1b86fc0dd4dd36f48df04a970a52c26d143cd511129fe13933994cb4460c49bfe781'
-    }
-    return requests.get('https://adventofcode.com/2022/day/1/input', headers=headers).text.split("\n")
+def getListFromFile():
+    file = open("list.txt", "r")
+    content = file.read().splitlines()
+    file.close()
+    return content
 
 def calculateTotalCaloriesByElf(list: list):
     totalCaloriesByElf = []
@@ -27,7 +27,7 @@ def getMostCaloriesAndIndex(totalCaloriesByElf: list):
     return mostCalories, mostCaloriesIndex
 
 # On récupère la liste des calories depuis le site
-content = getListFromWebsite()
+content = getListFromFile()
 
 # On calcule le nombre total de calories par elfe
 totalCaloriesByElf = calculateTotalCaloriesByElf(content)
