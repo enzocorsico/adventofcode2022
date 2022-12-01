@@ -1,0 +1,53 @@
+import requests
+
+def getListFromWebsite():
+    headers = {
+        'cookie': 'session=53616c7465645f5f88e427cc590f85def2ddfc03b97b46f72d8c783d0adb1b86fc0dd4dd36f48df04a970a52c26d143cd511129fe13933994cb4460c49bfe781'
+    }
+    return requests.get('https://adventofcode.com/2022/day/1/input', headers=headers).text.split("\n")
+
+def calculateTotalCaloriesByElf(list: list):
+    totalCaloriesByElf = []
+    currentCalories = 0
+    for calories in content:
+        if calories != "":
+            currentCalories += int(calories)
+        else:
+            totalCaloriesByElf.append(currentCalories)
+            currentCalories = 0
+    return totalCaloriesByElf
+
+def getMostCaloriesAndIndex(totalCaloriesByElf: list):
+    mostCalories = 0
+    mostCaloriesIndex = 0
+    for index, calories in enumerate(totalCaloriesByElf):
+        if calories > mostCalories:
+            mostCalories = calories
+            mostCaloriesIndex = index
+    return mostCalories, mostCaloriesIndex
+
+# On récupère la liste des calories depuis le site
+content = getListFromWebsite()
+
+# On calcule le nombre total de calories par elfe
+totalCaloriesByElf = calculateTotalCaloriesByElf(content)
+
+# On récupère l'elfe qui a récupéré le plus de calories puis on le supprime de la liste
+firstElf = getMostCaloriesAndIndex(totalCaloriesByElf)
+totalCaloriesByElf.pop(firstElf[1])
+
+# On récupère le deuxième l'elfe qui a récupéré le plus de calories puis on le supprime de la liste
+secondElf = getMostCaloriesAndIndex(totalCaloriesByElf)
+totalCaloriesByElf.pop(secondElf[1])
+
+# On récupère le troisième l'elfe qui a récupéré le plus de calories puis on le supprime de la liste
+thirdElf = getMostCaloriesAndIndex(totalCaloriesByElf)
+totalCaloriesByElf.pop(thirdElf[1])
+
+# Affichage des résultats
+print("Classement des calories récupéré par elfe est :")
+print(" - 1er : ", firstElf[0])
+print(" - 2ème : ", secondElf[0])
+print(" - 3ème : ", thirdElf[0])
+print("Le gagnant est l'elfe numéro : ", firstElf[1] + 1)
+print("La somme des calories récupéré des 3 premiers elfes est de : ", firstElf[0] + secondElf[0] + thirdElf[0])
