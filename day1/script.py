@@ -1,7 +1,5 @@
-import requests
-
 def getListFromFile():
-    file = open("list.txt", "r")
+    file = open("puzzle.txt", "r")
     content = file.read().splitlines()
     file.close()
     return content
